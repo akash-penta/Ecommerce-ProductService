@@ -1,8 +1,12 @@
 package com.akash.productservice.controllers;
 
+import com.akash.productservice.dtos.ExceptionDto;
 import com.akash.productservice.dtos.GenericProductDto;
+import com.akash.productservice.exceptions.NotFoundExcpetion;
 import com.akash.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,12 +34,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id) {
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundExcpetion {
         return productService.getProductById(id);
     }
 
     @DeleteMapping("/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+    public GenericProductDto deleteProductById(@PathVariable("id") Long id) throws NotFoundExcpetion {
         return productService.deleteProductById(id);
     }
 
@@ -43,7 +47,7 @@ public class ProductController {
     public GenericProductDto updateProductById(
             @PathVariable("id") Long id,
             @RequestBody GenericProductDto genericProductDto
-    ) {
+    ) throws NotFoundExcpetion {
         return productService.updateProductById(id, genericProductDto);
     }
 }
