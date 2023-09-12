@@ -2,6 +2,7 @@ package com.akash.productservice.thirdpartyclients.productservice.fakestore;
 
 import com.akash.productservice.dtos.GenericProductDto;
 import com.akash.productservice.exceptions.NotFoundExcpetion;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,17 @@ import java.util.List;
 @Service
 public class FakeStoreProductServiceClient {
     private RestTemplateBuilder restTemplateBuilder;
-    private String productUrl = "https://fakestoreapi.com/products";
-    private String productByIdUrl = "https://fakestoreapi.com/products/{id}";
+    private String productUrl;
+    private String productByIdUrl;
 
-    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder) {
+    public FakeStoreProductServiceClient(
+            RestTemplateBuilder restTemplateBuilder,
+            @Value("${fakestore.api.url}") String fakeStoreApiUrl,
+            @Value("${fakestore.api.path.product}") String fakeStoreProductsApiPath
+    ) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.productUrl = fakeStoreApiUrl + fakeStoreProductsApiPath;
+        this.productByIdUrl = fakeStoreApiUrl + fakeStoreProductsApiPath + "/{id}";
     }
 
     public FakeStoreProductDto createProduct(GenericProductDto genericProductDto) {
