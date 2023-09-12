@@ -1,4 +1,4 @@
-package com.akash.productservice.dtos;
+package com.akash.productservice.thirdpartyclients.productservice.fakestore;
 
 import com.akash.productservice.models.Category;
 import lombok.Getter;
