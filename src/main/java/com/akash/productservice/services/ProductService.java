@@ -9,7 +9,7 @@ public interface ProductService {
 
     GenericProductDto createProduct(GenericProductDto genericProductDto);
     List<GenericProductDto> getAllProducts();
-    GenericProductDto getProductById(Long id) throws NotFoundExcpetion;
-    GenericProductDto deleteProductById(Long id) throws NotFoundExcpetion;
-    GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto) throws NotFoundExcpetion;
+    GenericProductDto getProductById(String id) throws NotFoundExcpetion;
+    GenericProductDto deleteProductById(String id) throws NotFoundExcpetion;
+    GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundExcpetion;
 }

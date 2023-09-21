@@ -39,18 +39,18 @@ public class FakeStoreProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) throws NotFoundExcpetion {
-        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.getProductById(id));
+    public GenericProductDto getProductById(String id) throws NotFoundExcpetion {
+        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.getProductById(Long.parseLong(id)));
     }
 
     @Override
-    public GenericProductDto deleteProductById(Long id) throws NotFoundExcpetion {
-        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.deleteProductById(id));
+    public GenericProductDto deleteProductById(String id) throws NotFoundExcpetion {
+        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.deleteProductById(Long.parseLong(id)));
     }
 
     @Override
-    public GenericProductDto updateProductById(Long id, GenericProductDto genericProductDto) throws NotFoundExcpetion {
-        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.updateProductById(id, genericProductDto));
+    public GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundExcpetion {
+        return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.updateProductById(Long.parseLong(id), genericProductDto));
     }
 
     private GenericProductDto convertFakeStoreProductDtoToGenericProductDto(FakeStoreProductDto fakeStoreProductDto) {

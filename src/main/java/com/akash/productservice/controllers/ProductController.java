@@ -19,7 +19,7 @@ public class ProductController {
 
     ProductService productService;
 
-    public ProductController(@Qualifier("fakeStoreProductServiceImpl") ProductService productService) {
+    public ProductController(@Qualifier("selfProductServiceImpl") ProductService productService) {
         this.productService = productService;
     }
 
@@ -34,18 +34,18 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundExcpetion {
+    public GenericProductDto getProductById(@PathVariable("id") String id) throws NotFoundExcpetion {
         return productService.getProductById(id);
     }
 
     @DeleteMapping("/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) throws NotFoundExcpetion {
+    public GenericProductDto deleteProductById(@PathVariable("id") String id) throws NotFoundExcpetion {
         return productService.deleteProductById(id);
     }
 
     @PatchMapping("/{id}")
     public GenericProductDto updateProductById(
-            @PathVariable("id") Long id,
+            @PathVariable("id") String id,
             @RequestBody GenericProductDto genericProductDto
     ) throws NotFoundExcpetion {
         return productService.updateProductById(id, genericProductDto);

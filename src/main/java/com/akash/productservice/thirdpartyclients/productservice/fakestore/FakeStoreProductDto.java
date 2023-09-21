@@ -4,10 +4,12 @@ import com.akash.productservice.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class FakeStoreProductDto {
-    private Long id;
+    private UUID id;
     private String title;
     private String description;
     private String image;
