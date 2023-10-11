@@ -2,15 +2,9 @@ package com.akash.productservice.services;
 
 import com.akash.productservice.thirdpartyclients.productservice.fakestore.FakeStoreProductDto;
 import com.akash.productservice.dtos.GenericProductDto;
-import com.akash.productservice.exceptions.NotFoundExcpetion;
+import com.akash.productservice.exceptions.NotFoundException;
 import com.akash.productservice.thirdpartyclients.productservice.fakestore.FakeStoreProductServiceClient;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RequestCallback;
-import org.springframework.web.client.ResponseExtractor;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +33,17 @@ public class FakeStoreProductServiceImpl implements  ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(String id) throws NotFoundExcpetion {
+    public GenericProductDto getProductById(String id) throws NotFoundException {
         return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.getProductById(Long.parseLong(id)));
     }
 
     @Override
-    public GenericProductDto deleteProductById(String id) throws NotFoundExcpetion {
+    public GenericProductDto deleteProductById(String id) throws NotFoundException {
         return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.deleteProductById(Long.parseLong(id)));
     }
 
     @Override
-    public GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundExcpetion {
+    public GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundException {
         return convertFakeStoreProductDtoToGenericProductDto(fakeStoreProductServiceClient.updateProductById(Long.parseLong(id), genericProductDto));
     }
 

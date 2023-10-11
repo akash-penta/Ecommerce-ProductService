@@ -1,7 +1,8 @@
 package com.akash.productservice.services;
 
 import com.akash.productservice.dtos.GenericProductDto;
-import com.akash.productservice.exceptions.NotFoundExcpetion;
+import com.akash.productservice.exceptions.NotFoundException;
+import com.akash.productservice.exceptions.UnableToCreateProductException;
 import com.akash.productservice.models.Category;
 import com.akash.productservice.models.Price;
 import com.akash.productservice.models.Product;
@@ -33,7 +34,11 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     @Override
-    public GenericProductDto createProduct(GenericProductDto genericProductDto) {
+    public GenericProductDto createProduct(GenericProductDto genericProductDto) throws UnableToCreateProductException {
+        if(genericProductDto.getTitle().isBlank()) {
+            throw new UnableToCreateProductException("Unable to create product without title");
+        }
+
         Category category = new Category();
         category.setName(genericProductDto.getCategory());
 
@@ -66,10 +71,10 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     @Override
-    public GenericProductDto getProductById(String id) throws NotFoundExcpetion {
+    public GenericProductDto getProductById(String id) throws NotFoundException {
         Optional<Product> optionalProduct = productRepository.findById(UUID.fromString(id));
         if(optionalProduct.isEmpty()) {
-            throw new NotFoundExcpetion("Product with Id:" + id + " is not found");
+            throw new NotFoundException("Product with Id:" + id + " is not found");
         }
         
         Product resultProduct = optionalProduct.get();
@@ -78,10 +83,10 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     @Override
-    public GenericProductDto deleteProductById(String id) throws NotFoundExcpetion {
+    public GenericProductDto deleteProductById(String id) throws NotFoundException {
         Optional<Product> optionalProduct = productRepository.findById(UUID.fromString(id));
         if(optionalProduct.isEmpty()) {
-            throw new NotFoundExcpetion("Product with Id:" + id + " is not found");
+            throw new NotFoundException("Product with Id:" + id + " is not found");
         }
 
         productRepository.deleteById(UUID.fromString(id));
@@ -92,10 +97,10 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     @Override
-    public GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundExcpetion {
+    public GenericProductDto updateProductById(String id, GenericProductDto genericProductDto) throws NotFoundException {
         Optional<Product> optionalProduct = productRepository.findById(UUID.fromString(id));
         if(optionalProduct.isEmpty()) {
-            throw new NotFoundExcpetion("Product with Id:" + id + " is not found");
+            throw new NotFoundException("Product with Id:" + id + " is not found");
         }
 
         Product product = optionalProduct.get();

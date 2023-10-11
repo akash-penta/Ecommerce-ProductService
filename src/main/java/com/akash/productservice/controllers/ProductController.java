@@ -1,16 +1,12 @@
 package com.akash.productservice.controllers;
 
-import com.akash.productservice.dtos.ExceptionDto;
 import com.akash.productservice.dtos.GenericProductDto;
-import com.akash.productservice.exceptions.NotFoundExcpetion;
+import com.akash.productservice.exceptions.NotFoundException;
+import com.akash.productservice.exceptions.UnableToCreateProductException;
 import com.akash.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,7 +20,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto) {
+    public GenericProductDto createProduct(@RequestBody GenericProductDto genericProductDto) throws UnableToCreateProductException {
         return productService.createProduct(genericProductDto);
     }
 
@@ -34,12 +30,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public GenericProductDto getProductById(@PathVariable("id") String id) throws NotFoundExcpetion {
+    public GenericProductDto getProductById(@PathVariable("id") String id) throws NotFoundException {
         return productService.getProductById(id);
     }
 
     @DeleteMapping("/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") String id) throws NotFoundExcpetion {
+    public GenericProductDto deleteProductById(@PathVariable("id") String id) throws NotFoundException {
         return productService.deleteProductById(id);
     }
 
@@ -47,7 +43,7 @@ public class ProductController {
     public GenericProductDto updateProductById(
             @PathVariable("id") String id,
             @RequestBody GenericProductDto genericProductDto
-    ) throws NotFoundExcpetion {
+    ) throws NotFoundException {
         return productService.updateProductById(id, genericProductDto);
     }
 }
